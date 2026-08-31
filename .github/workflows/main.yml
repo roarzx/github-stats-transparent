@@ -68,4 +68,7 @@ jobs:
         git checkout output 2>/dev/null || git checkout --orphan output && git rm -rf . && git checkout main -- generated/
         # "echo" returns true so the build succeeds, even if no changed files
         git commit -m 'Update generated files' || echo
+        echo "Token length: ${#ACCESS_TOKEN}"   # 新增：调试行，检查令牌是否传入
         git push https://${{ secrets.ACCESS_TOKEN }}@github.com/roarzx/github-stats-transparent.git output -f
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}   # 新增：显式传入令牌
